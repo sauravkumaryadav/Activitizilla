@@ -55,6 +55,22 @@ app.get("/book",function(req,res){
 
 
 });
+app.get('/api/callback', function(request, response) {
+    uber.authorizationAsync({authorization_code: "crd.EA.CAESEB2Gyplb1kNwmh0kfy4at_0iATE.wh0386JHrD8xATtEImD_TXS6-V6VF07vKCw_rEq0myQ#_"})
+    .spread(function(access_token, refresh_token, authorizedScopes, tokenExpiration) {
+      // store the user id and associated access_token, refresh_token, scopes and token expiration date
+      console.log('New access_token retrieved: ' + access_token);
+      console.log('... token allows access to scopes: ' + authorizedScopes);
+      console.log('... token is valid until: ' + tokenExpiration);
+      console.log('... after token expiration, re-authorize using refresh_token: ' + refresh_token);
+ 
+      // redirect the user back to your actual app
+      response.redirect('/web/index.html');
+    })
+    .error(function(err) {
+      console.error(err);
+    });
+});
 
 
 app.post("/book",function(req,res){
