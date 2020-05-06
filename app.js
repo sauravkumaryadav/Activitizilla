@@ -13,6 +13,8 @@ const  findOrCreate = require('mongoose-findorcreate');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const  uberStrategy = require('passport-uber-v2').Strategy;
 
+const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
+
 const app = express();
 
 app.use(express.static("public"));
@@ -38,10 +40,18 @@ const userSchema = new mongoose.Schema({
   facebookId: String
 });
 
+//blog
+const postSchema = {
+  title: String,
+  content: String
+};
+
+
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
 const User = mongoose.model("User", userSchema);
+const Post = mongoose.model("Post", postSchema);
 passport.use(User.createStrategy());
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -99,6 +109,36 @@ app.get("/", function (req, res) {
     res.render("home");
 });
 
+app.get("/bloghome", function(req, res){
+
+  Post.find({}, function(err, posts){
+    res.render("bloghome", {
+      startingContent: homeStartingContent,
+      posts: posts
+      });
+  });
+});
+
+
+app.get("/blogcompose", function(req, res){
+  res.render("blogcompose");
+});
+
+app.get("/blogposts/:postId", function(req, res){
+
+  const requestedPostId = req.params.postId;
+  
+    Post.findOne({_id: requestedPostId}, function(err, post){
+      res.render("blogpost", {
+        title: post.title,
+        content: post.content
+      });
+    });
+  
+  });
+
+ 
+
 app.get("/auth/google",
   passport.authenticate('google', { scope: ["profile"] })
   );
@@ -144,6 +184,35 @@ app.get("/logout", function(req, res){
   res.redirect('/');
 });
 
+
+app.post("/blogcompose", function(req, res){
+  const post = new Post({
+    title: req.body.postTitle,
+    content: req.body.postBody
+  });
+
+
+  post.save(function(err){
+    if (!err){
+        res.redirect("/bloghome");
+    }
+  });
+});
+
+app.post("/blogdelete",function(req,res){
+    
+  if(req.body.titleName===req.body.delete){
+    Post.findOneAndDelete({title:req.body.delete},function(err,result){
+      if(!err){
+        console.log("succesfully deleted");
+    res.redirect("/bloghome");}
+      });
+  }
+    else{
+      console.log("cant find");
+    }
+});
+
 app.post("/register", function (req, res) {
   User.register({username:req.body.username},req.body.password,function(err,user){
       if(err){console.log(err);
@@ -174,6 +243,7 @@ app.post("/login", function (req, res) {
 
 });
 });
+
 
 app.listen(3000, function () {
     console.log("server started on 3000");
