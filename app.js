@@ -38,7 +38,8 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   googleId: String,
-  facebookId: String
+  facebookId: String,
+  secret: String
 });
 
 //blog
@@ -140,6 +141,9 @@ app.get("/bloghome", function(req, res){
   });
 });
 
+app.get("/secretshome", function (req, res) {
+  res.render("secretshome");
+});
 
 app.get("/blogcompose", function(req, res){
   res.render("blogcompose");
@@ -204,6 +208,26 @@ res.redirect("/todolistshome");
   });
 
 
+});
+
+app.get("/secretssecrets",function(req,res){
+  User.find({"secret":{$ne: null}},function(err,foundUsers){
+      if(err){console.log(err)}
+      else{
+          if(foundUsers){
+              res.render("secretssecrets",{usersWithSecrets: foundUsers});
+          }
+      }
+  });
+});
+
+app.get("/secretssubmit",function(req,res){
+  if(req.isAuthenticated()){
+      res.render("secretssubmit");
+  }
+  else{
+      res.redirect("/secretshome");
+  }
 });
 
 app.get("/auth/google",
@@ -321,6 +345,22 @@ app.post("/todolistsdelete",function(req,res){
       });
   }
 });
+
+app.post("/secretssubmit",function(req,res){
+  const submittedSecret=req.body.secret;
+  User.findById(req.user.id,function(err,foundUser){
+      if(err){console.log(err);}
+      else{
+          if(foundUser){
+              foundUser.secret=submittedSecret;
+              foundUser.save(function(){
+                  res.redirect("/secretssecrets");
+              });
+          }
+      }
+  });
+
+})
 
 app.post("/register", function (req, res) {
   User.register({username:req.body.username},req.body.password,function(err,user){
