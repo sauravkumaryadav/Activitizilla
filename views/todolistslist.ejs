@@ -1,0 +1,25 @@
+<%- include("partials/header"); -%>
+<div class="box" id="heading">
+    <h1><%= day %></h1>
+</div>
+<div class="box">
+    <% for(var i=0;i<items.length;i++){ %>
+        <form action="/todolistsdelete" method="POST">
+    <div class="item">
+        <input type="checkbox" onchange="this.form.submit()" name="checkbox" value="<%= items[i]._id %>" >
+        <p> <%= items[i].name %> </p>
+    </div>
+    <input type="hidden" name="listName" value="<%= day %>"></input>
+</form>
+    <% }  %>
+
+    <form class="item" action="/todolistshome" method="POST">
+        <input type="text" class="" name="newItem" placeholder="new-item" autocomplete="off">
+        <button type="submit" name="list" value=<%= day %>>+</button>
+    </form>
+</div>
+
+<!-- <h1>Created By:<p>SAURAV KUMAR YADAV</p>
+</h1> -->
+
+<%- include("partials/footer"); -%>
