@@ -79,9 +79,11 @@ p {
 /* title image */
 
 .title-image {
-    width: 60%;
-    transform: rotate(25deg);
+    width: 50%;
+    /* transform: rotate(25deg); */
     margin-left: 60px;
+    margin-top: 50px;
+    margin-bottom: 20px;
 
 }
 
@@ -188,7 +190,13 @@ p {
     margin: 20px 10px;
 }
 
+.jumbotron{
+    background-color: #f58e8e;
+}
 
+.display-4{
+    color: #ff4c68;
+}
 /* media queries code below */
 
 @media (max-width:700px) {

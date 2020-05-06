@@ -1,9 +1,17 @@
+require('dotenv').config()
 const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const Uber = require('node-uber');
 const request = require("request");
-
+const mongoose = require("mongoose");
+const session = require("express-session");
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const  findOrCreate = require('mongoose-findorcreate');
+const FacebookStrategy = require('passport-facebook').Strategy;
+const  uberStrategy = require('passport-uber-v2').Strategy;
 
 const app = express();
 
@@ -13,26 +21,106 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+app.use(session({
+  secret:"our little secret.",
+  resave:false,
+  saveUninitialized:false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+mongoose.connect("mongodb://localhost:27017/minorDB",{useNewUrlParser:true,useUnifiedTopology:true});
+mongoose.set('useCreateIndex', true);
 
-const uber = new Uber({
-    client_id: process.env.CLIENT_ID,
-    client_secret: process.env.CLIENT_SECRET,
-    user_access_token: process.env.USER_ACCESS_TOKEN,
-    redirect_uri: 'http://localhost:3000/auth/uber/minorproject',
-    name: 'price comparison website',
-    // language: 'en_US', // optional, defaults to en_US
-    // sandbox: true, // optional, defaults to false
-    // proxy: 'PROXY URL' // optional, defaults to none
-  });
+const userSchema = new mongoose.Schema({
+  email: String,
+  password: String,
+  googleId: String,
+  facebookId: String
+});
 
-  app.get('/api/login', function(request, response) {
-      console.log(response);
-    var url = uber.getAuthorizeUrl(['request']);
-    response.redirect(url);
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
+
+const User = mongoose.model("User", userSchema);
+passport.use(User.createStrategy());
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
   });
+});
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "http://localhost:3000/auth/google/book",
+  userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+},
+function(accessToken, refreshToken, profile, cb) {
+  //console.log(profile);
+  User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    return cb(err, user);
+  });
+}
+));
+
+
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: "http://localhost:3000/auth/facebook/book"
+},
+function(accessToken, refreshToken, profile, cb) {
+  // console.log(profile);
+  User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+    return cb(err, user);
+  });
+}
+));
+
+// passport.use(new uberStrategy({
+//   clientID: process.env.CLIENT_ID,
+//   clientSecret: process.env.CLIENT_SECRET,
+//   callbackURL: 'http://localhost:3000/book'
+// },
+// function(accessToken, refreshToken, request, done) {
+//   var user = request;
+//   console.log(user);
+//   user.accessToken = accessToken;
+//   return done(null, user);
+// }
+// ));
+
+
 app.get("/", function (req, res) {
     res.render("home");
 });
+
+app.get("/auth/google",
+  passport.authenticate('google', { scope: ["profile"] })
+  );
+
+  app.get("/auth/google/book", 
+  passport.authenticate('google', { failureRedirect: "/login" }),
+  function(req, res) {
+    // Successful authentication, redirect to book.
+    res.redirect("/book");
+  });
+
+app.get('/auth/facebook',
+passport.authenticate('facebook'));
+
+app.get('/auth/facebook/book',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/book');
+  });
+
+
 
 app.get("/login",function(req,res){
     res.render("login");
@@ -43,49 +131,49 @@ app.get("/register", function (req, res) {
 });
 
 app.get("/book",function(req,res){
-    // res.sendFile(__dirname + "/index.html");
-//     request(curl -H 'Authorization: Bearer ' \
-//     -H 'Accept-Language: en_US' \
-//     -H 'Content-Type: application/json' \
-//     'https://api.uber.com/v1.2/estimates/price?start_latitude=37.7752315&start_longitude=-122.418075&end_latitude=37.7752415&end_longitude=-122.518075', function (error, response, body) {
-//   console.error('error:', error); // Print the error if one occurred
-//   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-//   console.log('body:', body); // Print the HTML for the Google homepage.
-// });
-
-
-});
-app.get('/api/callback', function(request, response) {
-    uber.authorizationAsync({authorization_code: "crd.EA.CAESEB2Gyplb1kNwmh0kfy4at_0iATE.wh0386JHrD8xATtEImD_TXS6-V6VF07vKCw_rEq0myQ#_"})
-    .spread(function(access_token, refresh_token, authorizedScopes, tokenExpiration) {
-      // store the user id and associated access_token, refresh_token, scopes and token expiration date
-      console.log('New access_token retrieved: ' + access_token);
-      console.log('... token allows access to scopes: ' + authorizedScopes);
-      console.log('... token is valid until: ' + tokenExpiration);
-      console.log('... after token expiration, re-authorize using refresh_token: ' + refresh_token);
- 
-      // redirect the user back to your actual app
-      response.redirect('/web/index.html');
-    })
-    .error(function(err) {
-      console.error(err);
-    });
+  if(req.isAuthenticated()){
+    res.render("book");
+  }
+  else{
+    res.redirect("/login");
+  }
 });
 
-
-app.post("/book",function(req,res){
-
+app.get("/logout", function(req, res){
+  req.logout();
+  res.redirect('/');
 });
 
+app.post("/register", function (req, res) {
+  User.register({username:req.body.username},req.body.password,function(err,user){
+      if(err){console.log(err);
+          res.redirect("/register");}
+      else{
+          passport.authenticate("local")(req,res,function(){
+              res.redirect("/book");
+          });
 
+      }
+  });
+});
 
+app.post("/login", function (req, res) {
+  const user = new User({
+      username: req.body.username,
+      password: req.body.password
+  });
 
+  req.login(user,function(err){
+      if(err){console.log(err);
+         res.redirect("/register");}
+      else{
+          passport.authenticate("local")(req,res,function(){
+              res.redirect("/book");
+      });
+  }
 
-
-
-
-
-
+});
+});
 
 app.listen(3000, function () {
     console.log("server started on 3000");
