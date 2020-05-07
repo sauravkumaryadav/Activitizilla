@@ -14,7 +14,7 @@ const  findOrCreate = require('mongoose-findorcreate');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const  uberStrategy = require('passport-uber-v2').Strategy;
 
-const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
+const homeStartingContent = " Blog is a platform where a writer or even a group of writers share their views on an individual subject.It's main purpose  is to connect you to the relevant audience.These are individuals who love sharing parts of their lives with you. They post various topics from arts, home designs, carpentry, and finance articles. Bloggers are mobile and don’t need to be in one place. They live on the internet!A blogger is someone who runs and controls a blog. He or she shares his or her opinion on different topics for a target audience.Would you want to have a blog of your own? Yes! Most people today are creating a blog for various reasons. Every human being has its story to tell. Hence, through the internet, bloggers can communicate to a larger group of people.Why is blogging so popular? Blogs allow you to talk about any topics and express your opinion. You’ll find some bloggers writing on every activity that took place during the day. These may range from small issues such as waking up, to major issues like human rights and climate changes! Remember that as a blogger running your own blog, you need to rely on the topics that you love and strive to become one of the best blogs on the web.";
 
 const app = express();
 
@@ -392,7 +392,9 @@ app.post("/login", function (req, res) {
 
 });
 });
-
+app.post("/contact",function(req,res){
+  res.render("contact" ,{name:req.body.fName , subject:req.body.subj});
+});
 
 app.listen(3000, function () {
     console.log("server started on 3000");

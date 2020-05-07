@@ -1,14 +1,14 @@
 
-<%- include("partials/header"); -%>
+ <%- include("partials/header"); -%> 
 
 
-<h1><%=title%></h1>
-<p><%=content%></p>
+<h1 style="text-align:center;color:crimson;margin-top:30px;text-shadow: 2px 2px 5px red;"><%=title%></h1>
+<p style="text-align: center;margin:30px 30px;background-image: url(https://storage.needpix.com/rsynced_images/background-4232859_1280.png);background-size: cover;"><%=content%></p>
 
 <form action="/blogdelete" method="POST">
-<button type="submit" name="delete" value="<%= title%>">Delete it!</button>  
+<button type="submit" name="delete" value="<%= title%>" class="btn btn-md btn-primary" style="margin-left:auto;margin-right:auto;display:block;margin-top:2%;margin-bottom:0%">Delete it!</button>  
 <input type="hidden" name="titleName" value="<%= title %>"></input>
 </form>
 
 
-<%- include("partials/footer"); -%>
+<!-- <%- include("partials/footer"); -%> -->

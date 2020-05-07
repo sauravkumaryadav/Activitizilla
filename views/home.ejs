@@ -1,6 +1,6 @@
 <%- include('partials/header') %>
       <!-- Title -->
-      <div class="row">
+      <div class="row titlerow">
         <div class="col-lg-6">
           <h1 class="big-heading">Create Blogs , ToDoList, Secrets only here.</h1>
           <button class="btn btn-dark btn-lg download-button" type="button"><i
@@ -9,11 +9,11 @@
               class="fab fa-google-play"></i>Download</button>
         </div>
         <div>
-          <div class="col-lg-6">
-            <img class="title-image" src="images/download.jfif" alt="iphone-mockup">
-            <button type="button" class="btn btn-outline-dark btn-lg covidbtn">Covid-19 Live data</button>
+          <div class="col-lg-6" >
+            <img class="title-image" src="images/download.jfif" alt="covid-19 image">
           </div>
-         
+          <button type="button" class="btn btn-outline-dark btn-lg covidbtn" onclick=" window.open('https://coronalive-ak.herokuapp.com/', '_blank'); return false;" ><i class="fas fa-virus">Covid-19 Live data</i></button>
+          <p>**For more details of covid-19 click the above button**</p>
         </div>
       </div>
 
@@ -24,7 +24,7 @@
 
   <!-- Features -->
 
-  <section id="features" class="white-section">
+  <section id="features" class="feature-section">
     <div class="row">
       <div class="feature-box col-lg-4">
         <h3 class="feature-title"><i class="icon fas fa-check-circle"></i><br>Easy to use.</h3>
@@ -42,18 +42,7 @@
   </section>
 
 
-  <!-- Testimonials -->
-
- 
-  <!-- Press -->
-
-  <!-- <section id="press" class="coloured-section">
-    <img class="press-logo" src="images/techcrunch.png" alt="tc-logo">
-    <img class="press-logo" src="images/tnw.png" alt="tnw-logo">
-    <img class="press-logo" src="images/bizinsider.png" alt="biz-insider-logo">
-    <img class="press-logo" src="images/mashable.png" alt="mashable-logo">
-
-  </section> -->
+  
 
 
   <!-- Activities -->
@@ -75,7 +64,7 @@
             <p>Update blogs</p>
             <p>Read blogs</p>
             <p>Delete blogs</p>
-            <button type="button" class="btn btn-dark btn-lg btn-block" onclick="location.href='/register';" >Sign Up</button>
+            <button type="button" class="btn btn-dark btn-lg btn-block" onclick="location.href='/register';" >Write Blog</button>
           </div>
         </div>
       </div>
@@ -91,7 +80,7 @@
             <p>Perform tasks</p>
             <p>Update tasks</p>
             <p>Delete tasks</p>
-            <button type="button" class="btn btn-dark btn-lg btn-block" onclick="location.href='/register';">Sign Up</button>
+            <button type="button" class="btn btn-dark btn-lg btn-block" onclick="location.href='/register';">Create Today</button>
           </div>
         </div>
       </div>
@@ -106,7 +95,7 @@
             <h2 class="price-text">Free</h2>
             <p>Write secrets</p>
             <p>Read other's secrets</p>
-            <button type="button" class="btn btn-dark btn-lg btn-block" onclick="location.href='/register';">Sign Up</button>
+            <button type="button" class="btn btn-dark btn-lg btn-block" onclick="location.href='/register';">Share Secret</button>
           </div>
         </div>
       </div>
@@ -118,12 +107,11 @@
 
   <!-- Download -->
 
-  <section id="download" class="coloured-section">
+  <section id="download" >
 
     <h3 class="big-heading">Download it on Android or ios platform also.</h3>
     <button type="button" class="download-button btn btn-lg btn-dark "><i class="fab fa-apple"></i>Download</button>
-    <button type="button" class="download-button btn btn-lg btn-outline-light"><i
-        class="fab fa-google-play"></i>Download</button>
+    <button type="button" class="download-button btn btn-lg btn-dark"><i class="fab fa-google-play"></i>Download</button>
 
   </section>
 
@@ -133,28 +121,28 @@
 
     <!-- carousal or slide show applied below -->
 
-    <div id="testimonial-carousal" class="carousel slide" data-ride="carousel">
+    <div id="testimonial-carousal" class="carousel slide" data-ride="carousel" style="background-color: rgb(207, 81, 81);">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <h2 class="testimonial-text"><strong>Saurav Kumar Yadav</strong><br>-Full Stack Developer<br>
+          <h3 class="testimonial-text"><strong>Saurav Kumar Yadav</strong><br></h3><h5>-Full Stack Developer<br>
             -Loves to play Cricket<br>
-            -Fond of watching movies<br> </h2>
-          <img class="testimonial-image" src="images/WhatsApp Image 2020-03-15 at 11.59.52 PM.jpeg" alt="dog-profile">
+            -Fond of watching movies<br> </h5>
+          <img class="testimonial-image" src="images/WhatsApp Image 2020-03-15 at 11.59.52 PM.jpeg" alt="Saurav-profile">
           <em>Ghaziabad, UP</em>
         </div>
         <div class="carousel-item">
-          <h2 class="testimonial-text"><strong>Ashish Kumar</strong><br>-Full Stack Developer<br>
+          <h3 class="testimonial-text"><strong>Ashish Kumar</strong><br></h3><h5>-Full Stack Developer<br>
             -Loves to play Cricket<br>
-            -Fond of watching movies<br></h2>
-          <img class="testimonial-image" src="images/WhatsApp Image 2020-05-06 at 2.42.37 PM.jpeg" alt="lady-profile">
+            -Fond of watching movies<br></h5>
+          <img class="testimonial-image" src="images/WhatsApp Image 2020-05-06 at 2.42.37 PM.jpeg" alt="Ashish-profile">
           <em>Noida, UP</em>
         </div>
 
         <div class="carousel-item">
-          <h2 class="testimonial-text"><strong>Keshav Agarwal</strong><br>-Full Stack Developer<br>
+          <h3 class="testimonial-text"><strong>Keshav Agarwal</strong><br></h3><h5>-Full Stack Developer<br>
             -Loves to play Cricket<br>
-            -Fond of watching movies<br></h2>
-          <img class="testimonial-image" src="images/WhatsApp Image 2020-05-06 at 2.31.34 PM.jpeg" alt="lady-profile">
+            -Fond of watching movies<br></h5>
+          <img class="testimonial-image" src="images/WhatsApp Image 2020-05-06 at 2.31.34 PM.jpeg" alt="Keshav-profile">
           <em>Surat, Gujarat</em>
         </div>
 
@@ -176,9 +164,9 @@
 
 
   <!-- Contact  us-->
-<section id="contactus" clas="coloured-section"></section>
+<section id="contactus" class="contactus-section">
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 contactusleft">
       <h1 class="big-heading">Getting in touch is easy!</h1>
       <p class="feature-title">Find us here!!</p>
       <p><a href="mailto:sauravyadav753@gmail.com">sauravyadav753@gmail.com</a></p>
@@ -190,24 +178,24 @@
       <i class="fab fa-linkedin"></i>
       <i class="fab fa-twitter"></i>
       </div>
-  <div class="col-lg-6">
-  <form>
-    <div class="form-group ">
+  <div class="col-lg-6 contactusright">
+  <form action="/contact" method="POST">
+    <div class="form-group">
       <label for="exampleInputName">Full Name</label>
-      <input type="text" class="form-control" id="exampleInputName" placeholder="Enter full name">
+      <input type="text" name="fName" class="form-control" id="exampleInputName" placeholder="Enter full name" required>
     </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
       <label for="exampleInputSubject">Subject</label>
-      <input type="text" class="form-control" id="exampleInputSubject" placeholder="Enter the subject">
+      <input type="text" name="subj" class="form-control" id="exampleInputSubject" placeholder="Enter the subject" required>
     </div>
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Message</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
     </div>
     <button type="submit" class="btn btn-dark">Submit</button>
   </form>
