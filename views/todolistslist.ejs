@@ -1,13 +1,13 @@
 <%- include("partials/header"); -%>
-<div class="box" id="heading">
+<div class="box todolistheading" id="heading">
     <h1><%= day %></h1>
 </div>
-<div class="box">
+<div class="box todolistbox">
     <% for(var i=0;i<items.length;i++){ %>
         <form action="/todolistsdelete" method="POST">
-    <div class="item">
+    <div class="item todolistitems">
         <input type="checkbox" onchange="this.form.submit()" name="checkbox" value="<%= items[i]._id %>" >
-        <p> <%= items[i].name %> </p>
+        <p class="todolistwords"> <%= items[i].name %> </p>
     </div>
     <input type="hidden" name="listName" value="<%= day %>"></input>
 </form>
@@ -15,12 +15,10 @@
 
     <form class="item" action="/todolistshome" method="POST">
         <input type="text" class="" name="newItem" placeholder="new-item" autocomplete="off">
-        <button type="submit" name="list" value=<%= day %>>+</button>
+        <button class="btn btn-dark btn-lg" type="submit" name="list" value=<%= day %>>+</button>
     </form>
-</div>
-<button class="btn btn-md btn-primary" onclick="window.location.href='/book'">Back to Activities</button>
+</div><br>
+<button class="btn btn-md btn-dark" onclick="window.location.href='/book'">Back to Activities</button>
 
-<!-- <h1>Created By:<p>SAURAV KUMAR YADAV</p>
-</h1> -->
 
 <%- include("partials/footer"); -%>

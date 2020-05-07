@@ -66,7 +66,7 @@ const item2 = new Item({
   name:"Hit the + button to add a new item"
 });
 const item3 = new Item({
-  name:"<-- Hit this to delete this item"
+  name:"Tick the checkbox to delete the item"
 });
 const defaultItems = [item1 , item2 , item3];
 const listSchema = new mongoose.Schema({
@@ -112,20 +112,6 @@ function(accessToken, refreshToken, profile, cb) {
   });
 }
 ));
-
-// passport.use(new uberStrategy({
-//   clientID: process.env.CLIENT_ID,
-//   clientSecret: process.env.CLIENT_SECRET,
-//   callbackURL: 'http://localhost:3000/book'
-// },
-// function(accessToken, refreshToken, request, done) {
-//   var user = request;
-//   console.log(user);
-//   user.accessToken = accessToken;
-//   return done(null, user);
-// }
-// ));
-
 
 app.get("/", function (req, res) {
     res.render("home");
