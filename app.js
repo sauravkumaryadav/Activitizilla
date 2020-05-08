@@ -119,12 +119,18 @@ app.get("/", function (req, res) {
 
 app.get("/bloghome", function(req, res){
 
-  Post.find({}, function(err, posts){
-    res.render("bloghome", {
-      startingContent: homeStartingContent,
-      posts: posts
-      });
-  });
+  if(req.isAuthenticated()){
+    Post.find({}, function(err, posts){
+      res.render("bloghome", {
+        startingContent: homeStartingContent,
+        posts: posts
+        });
+    });
+}
+else{
+    res.redirect("/login");
+}
+  
 });
 
 app.get("/secretshome", function (req, res) {
