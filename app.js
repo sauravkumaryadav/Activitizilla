@@ -3,7 +3,6 @@ const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const _ = require("lodash");
-const Uber = require('node-uber');
 const request = require("request");
 const mongoose = require("mongoose");
 const session = require("express-session");
@@ -12,7 +11,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const  findOrCreate = require('mongoose-findorcreate');
 const FacebookStrategy = require('passport-facebook').Strategy;
-const  uberStrategy = require('passport-uber-v2').Strategy;
+
 
 const homeStartingContent = " Blog is a platform where a writer or even a group of writers share their views on an individual subject.It's main purpose  is to connect you to the relevant audience.These are individuals who love sharing parts of their lives with you. They post various topics from arts, home designs, carpentry, and finance articles. Bloggers are mobile and don’t need to be in one place. They live on the internet!A blogger is someone who runs and controls a blog. He or she shares his or her opinion on different topics for a target audience.Would you want to have a blog of your own? Yes! Most people today are creating a blog for various reasons. Every human being has its story to tell. Hence, through the internet, bloggers can communicate to a larger group of people.Why is blogging so popular? Blogs allow you to talk about any topics and express your opinion. You’ll find some bloggers writing on every activity that took place during the day. These may range from small issues such as waking up, to major issues like human rights and climate changes! Remember that as a blogger running your own blog, you need to rely on the topics that you love and strive to become one of the best blogs on the web.";
 
@@ -135,28 +134,44 @@ else{
 });
 
 app.get("/secretshome", function (req, res) {
-  res.render("secretshome");
-});
+  if(req.isAuthenticated()){
+    res.render("secretshome");
+  }
+  else {
+    res.redirect("/login");
+  }
+  });
+  
 
 app.get("/blogcompose", function(req, res){
+  if(req.isAuthenticated()){
   res.render("blogcompose");
+  }
+  else {
+    res.redirect("/login");
+  }
 });
 
 app.get("/blogposts/:postId", function(req, res){
 
   const requestedPostId = req.params.postId;
-  
+  if(req.isAuthenticated()){
     Post.findOne({_id: requestedPostId}, function(err, post){
       res.render("blogpost", {
         title: post.title,
         content: post.content
       });
     });
+  }
+  else{
+    res.redirect("/login");
+  }
   
   });
 
   app.get("/todolistshome/:customListName", function (req, res) {
     const customListName = _.capitalize(req.params.customListName);
+    if(req.isAuthenticated()){
     List.findOne({name:customListName},function(err,foundList){
         if(!err){
             if(!foundList){
@@ -174,13 +189,17 @@ app.get("/blogposts/:postId", function(req, res){
             }
         }
     });
+  }
+  else{
+    res.redirect("/login");
+  }
     
 });
 
 
 app.get("/todolistshome", function (req, res) {
 
-    
+    if(req.isAuthenticated()){
   Item.find(function(err,result){
       if(result.length===0){
           Item.insertMany(defaultItems,function(err,result){
@@ -200,11 +219,14 @@ res.redirect("/todolistshome");
       
           
   });
-
-
+}
+else{
+  res.redirect("/login");
+}
 });
 
 app.get("/secretssecrets",function(req,res){
+  if(req.isAuthenticated()){
   User.find({"secret":{$ne: null}},function(err,foundUsers){
       if(err){console.log(err)}
       else{
@@ -213,6 +235,10 @@ app.get("/secretssecrets",function(req,res){
           }
       }
   });
+}
+else{
+  res.redirect("/login");
+}
 });
 
 app.get("/secretssubmit",function(req,res){
