@@ -44,7 +44,8 @@ const userSchema = new mongoose.Schema({
 //blog
 const postSchema = {
   title: String,
-  content: String
+  content: String,
+  userId: String
 };
 
 //todolist
@@ -212,8 +213,7 @@ res.redirect("/todolistshome");
       else{
           res.render('todolistslist', {
               day: "Today",
-              items: result,
-              userId:result.userId
+              items: result
           });
       }
       
@@ -299,7 +299,8 @@ app.get("/logout", function(req, res){
 app.post("/blogcompose", function(req, res){
   const post = new Post({
     title: req.body.postTitle,
-    content: req.body.postBody
+    content: req.body.postBody,
+    userId: req.user._id
   });
 
 
@@ -328,7 +329,7 @@ app.post("/todolistshome", function (req, res) {
   const listName=req.body.list;
    const item = new Item({
        name: req.body.newItem,
-       userId: "adnmakld"
+       userId: req.user._id
    });
    if(listName==="Today")
    {
@@ -389,7 +390,9 @@ app.post("/register", function (req, res) {
           res.redirect("/register");}
       else{
           passport.authenticate("local")(req,res,function(){
+            res.cookie('userid', req.user._id, { maxAge: 2592000000 }); 
               res.redirect("/book");
+
           });
 
       }
@@ -407,6 +410,7 @@ app.post("/login", function (req, res) {
          res.redirect("/register");}
       else{
           passport.authenticate("local")(req,res,function(){
+            res.cookie('userid', req.user._id, { maxAge: 2592000000 }); 
               res.redirect("/book");
       });
   }
