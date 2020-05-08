@@ -50,7 +50,8 @@ const postSchema = {
 
 //todolist
 const itemSchema = new mongoose.Schema({
-  name:String
+  name:String,
+  userId: String
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -192,7 +193,8 @@ res.redirect("/todolistshome");
       else{
           res.render('todolistslist', {
               day: "Today",
-              items: result
+              items: result,
+              userId:result.userId
           });
       }
       
@@ -299,7 +301,8 @@ app.post("/blogdelete",function(req,res){
 app.post("/todolistshome", function (req, res) {
   const listName=req.body.list;
    const item = new Item({
-       name: req.body.newItem
+       name: req.body.newItem,
+       userId: "adnmakld"
    });
    if(listName==="Today")
    {
