@@ -8,7 +8,10 @@
 <form action="/blogdelete" method="POST">
 <button type="submit" name="delete" value="<%= title%>" class="btn btn-md btn-primary" style="margin-left:auto;margin-right:auto;display:block;margin-top:2%;margin-bottom:0%">Delete it!</button>  
 <input type="hidden" name="titleName" value="<%= title %>"></input>
+<input type="hidden" name="contentData" value="<%= content %>"></input>
+<input type="hidden" name="userId" value="<%= userId %>"></input>
+<input type="hidden" name="postId" value="<%= _id %>"></input>
 </form>
-
+<p style="color:black;margin-top:20px;"><%= data %></p>
 
 <!-- <%- include("partials/footer"); -%> -->

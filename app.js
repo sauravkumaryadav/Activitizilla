@@ -13,7 +13,9 @@ const  findOrCreate = require('mongoose-findorcreate');
 const FacebookStrategy = require('passport-facebook').Strategy;
 
 
-const homeStartingContent = " Blog is a platform where a writer or even a group of writers share their views on an individual subject.It's main purpose  is to connect you to the relevant audience.These are individuals who love sharing parts of their lives with you. They post various topics from arts, home designs, carpentry, and finance articles. Bloggers are mobile and don’t need to be in one place. They live on the internet!A blogger is someone who runs and controls a blog. He or she shares his or her opinion on different topics for a target audience.Would you want to have a blog of your own? Yes! Most people today are creating a blog for various reasons. Every human being has its story to tell. Hence, through the internet, bloggers can communicate to a larger group of people.Why is blogging so popular? Blogs allow you to talk about any topics and express your opinion. You’ll find some bloggers writing on every activity that took place during the day. These may range from small issues such as waking up, to major issues like human rights and climate changes! Remember that as a blogger running your own blog, you need to rely on the topics that you love and strive to become one of the best blogs on the web.";
+const homeStartingContent = " Blog is a platform where a writer or even a group of writers share their views on an individual subject.It's main purpose  is to connect you to the relevant audience.These are individuals who love sharing parts of their lives with you. They post various topics from arts, home designs, carpentry, and finance articles. Bloggers are mobile and don’t need to be in one place.\
+ They live on the internet!A blogger is someone who runs and controls a blog. He or she shares his or her opinion on different topics for a target audience.Would you want to have a blog of your own? Yes! Most people today are creating a blog for various reasons. Every human being has its story to tell. Hence, through the internet, bloggers can communicate to a larger group of people.Why is blogging \
+ so popular? Blogs allow you to talk about any topics and express your opinion. You’ll find some bloggers writing on every activity that took place during the day. These may range from small issues such as waking up, to major issues like human rights and climate changes! Remember that as a blogger running your own blog, you need to rely on the topics that you love and strive to become one of the best blogs on the web.";
 
 const app = express();
 
@@ -45,7 +47,8 @@ const userSchema = new mongoose.Schema({
 const postSchema = {
   title: String,
   content: String,
-  userId: String
+  userId: String,
+  data: String
 };
 
 //todolist
@@ -124,7 +127,9 @@ app.get("/bloghome", function(req, res){
     Post.find({}, function(err, posts){
       res.render("bloghome", {
         startingContent: homeStartingContent,
-        posts: posts
+        posts: posts,
+        userId: posts.userId,
+        _id: posts._id
         });
     });
 }
@@ -160,7 +165,10 @@ app.get("/blogposts/:postId", function(req, res){
     Post.findOne({_id: requestedPostId}, function(err, post){
       res.render("blogpost", {
         title: post.title,
-        content: post.content
+        content: post.content,
+        userId: post.userId,
+        _id: post._id,
+        data: ""
       });
     });
   }
@@ -312,16 +320,20 @@ app.post("/blogcompose", function(req, res){
 });
 
 app.post("/blogdelete",function(req,res){
-    
-  if(req.body.titleName===req.body.delete){
-    Post.findOneAndDelete({title:req.body.delete},function(err,result){
+  // console.log(req);
+
+  if(req.body.userId==req.user._id){
+    Post.findOneAndDelete({_id:req.body.postId},function(err,result){
       if(!err){
         console.log("succesfully deleted");
     res.redirect("/bloghome");}
+    else{
+      console.log("can't find");
+    }
       });
   }
     else{
-      console.log("cant find");
+      res.render("blogpost",{data:"**Not authorized to delete this post**",title:req.body.titleName,content:req.body.contentData,_id:req.body.postId,userId:req.body.userId});
     }
 });
 
