@@ -15,6 +15,8 @@
 
     <form class="item" action="/todolistshome" method="POST">
         <input type="text" class="" name="newItem" placeholder="new-item" autocomplete="off">
+        <input type="hidden" name="userId" value="<%= userId %>"></input>
+        <input type="hidden" name="itemId" value="<%= _id %>"></input>
         <button class="btn btn-dark btn-lg" type="submit" name="list" value=<%= day %>>+</button>
     </form>
 </div><br>

@@ -190,11 +190,11 @@ app.get("/blogposts/:postId", function(req, res){
                     items:defaultItems
                 });
                 list.save();
-                res.redirect("/todolistshome"+customListName);
+                res.redirect("/todolistshome/"+customListName);
             }
             else{
                 //already exists
-                res.render("todolistslist",{day:foundList.name,items:foundList.items});
+                res.render("todolistslist",{day:foundList.name,items:foundList.items,userId:foundList.userId,_id:foundList.itemId});
             }
         }
     });
@@ -221,9 +221,11 @@ res.redirect("/todolistshome");
       else{
           res.render('todolistslist', {
               day: "Today",
-              items: result
-          });
-      }
+              items: result,
+              userId: result.userId,
+              _id: result.itemId
+      })
+    }
       
           
   });
@@ -232,6 +234,7 @@ else{
   res.redirect("/login");
 }
 });
+
 
 app.get("/secretssecrets",function(req,res){
   if(req.isAuthenticated()){
@@ -343,6 +346,7 @@ app.post("/todolistshome", function (req, res) {
        name: req.body.newItem,
        userId: req.user._id
    });
+   if(req.user._id==req.body.userId){
    if(listName==="Today")
    {
        item.save();
@@ -352,16 +356,16 @@ app.post("/todolistshome", function (req, res) {
        List.findOne({name:listName},function(err,foundList){
            foundList.items.push(item);
            foundList.save();
-           res.redirect("/todolistshome"+listName);
+           res.redirect("/todolistshome/"+listName);
        });
    }
+  }
   
-
-
 });
 
 app.post("/todolistsdelete",function(req,res){ 
   const listName = req.body.listName;
+  if(req.user._id==req.body.userId){
   if(listName==="Today"){
       Item.findByIdAndDelete(req.body.checkbox,function(err,result){
           if(!err)
@@ -378,6 +382,7 @@ app.post("/todolistsdelete",function(req,res){
           }
       });
   }
+}
 });
 
 app.post("/secretssubmit",function(req,res){
@@ -438,7 +443,6 @@ if (port == null || port == "") {
   port = 3000;
 }
 
-console.log(dasd);
 app.listen(port, function () {
     console.log("server has started successfully");
 });
