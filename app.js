@@ -74,22 +74,6 @@ userSchema.plugin(findOrCreate);
 const User = mongoose.model("User", userSchema);
 const Post = mongoose.model("Post", postSchema);
 const Item = new mongoose.model("Item", itemSchema);
-// const item1 = new Item({
-//   name: "Welcome to your todolist"
-// });
-// const item2 = new Item({
-//   name: "Hit the + button to add a new item"
-// });
-// const item3 = new Item({
-//   name: "Tick the checkbox to delete the item"
-// });
-// const defaultItems = [item1, item2, item3];
-//todolist list schema
-// const listSchema = new mongoose.Schema({
-//   name: String,
-//   items: Array
-// });
-// const List = new mongoose.model("List", listSchema);
 passport.use(User.createStrategy());
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -390,39 +374,6 @@ app.post("/secretssubmit", function (req, res) {
 
 
 //todolist website
-// app.get("/todolistshome/:customListName", function (req, res) {
-//   const customListName = _.capitalize(req.params.customListName);
-//   if (req.isAuthenticated()) {
-//     List.findOne({
-//       name: customListName
-//     }, function (err, foundList) {
-//       if (!err) {
-//         if (!foundList) {
-//           //not exist so create a new list
-//           const list = new List({
-//             name: req.params.customListName,
-//             items: defaultItems,
-//             userId: req.user._id
-//           });
-//           list.save();
-//           res.redirect("/todolistshome/" + customListName);
-//         } else {
-//           //already exists
-//           res.render("todolistslist", {
-//             day: foundList.name,
-//             items: foundList.items,
-//             userId: foundList.userId,
-//             _id: foundList._id
-//           });
-//         }
-//       }
-//     });
-//   } else {
-//     res.redirect("/login");
-//   }
-
-// });
-
 
 app.get("/todolistshome", function (req, res) {
 // find() mei dekho
@@ -461,18 +412,7 @@ app.post("/todolistshome", function (req, res) {
 
         }
       });
-      // Item.find({userId:req.user._id},function(err,result){
-      //   if(err){console.log(err);}
-      //   else{
-      //     res.render("todolistslist",{
-      //       items: result,
-      //       userId: req.user._id
-            
-      //     });
-      //   }
-      //  });
-      
-    
+     
   }
 
 });
