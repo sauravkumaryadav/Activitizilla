@@ -438,7 +438,7 @@ if (port == null || port == "") {
   port = 3000;
 }
 
-
+console.log(dasd);
 app.listen(port, function () {
     console.log("server has started successfully");
 });
