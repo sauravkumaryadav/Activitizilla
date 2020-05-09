@@ -1,6 +1,6 @@
 <%- include("partials/header"); -%>
 <div class="box todolistheading" id="heading">
-    <h1><%= day %></h1>
+    <h1>Today</h1>
 </div>
 <div class="box todolistbox">
     <% for(var i=0;i<items.length;i++){ %>
@@ -9,13 +9,14 @@
         <input type="checkbox" onchange="this.form.submit()" name="checkbox" value="<%= items[i]._id %>" >
         <p class="todolistwords"> <%= items[i].name %> </p>
     </div>
-    <input type="hidden" name="listName" value="<%= day %>"></input>
+    <input type="hidden" name="listId" value="<%= items[i]._id %>"></input>
 </form>
     <% }  %>
 
     <form class="item" action="/todolistshome" method="POST">
         <input type="text" class="" name="newItem" placeholder="new-item" autocomplete="off">
-        <button class="btn btn-dark btn-lg" type="submit" name="list" value=<%= day %>>+</button>
+        <input type="hidden" name="userId" value="<%= userId %>"></input>
+                <button class="btn btn-dark btn-lg" type="submit" name="list">+</button>
     </form>
 </div><br>
 <button class="btn btn-md btn-dark" onclick="window.location.href='/book'">Back to Activities</button>
