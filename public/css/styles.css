@@ -239,6 +239,7 @@ p {
 }
 .jumbotron-book{
     background-color: peachpuff;
+    
 }
 /* media queries code below */
 
@@ -256,13 +257,27 @@ p {
 
 .bloghomecontent {
     /* background-color: lightgoldenrodyellow; */
-    background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
-    border: yellow 1px solid;
+    background-image: linear-gradient(to right, rgba(34, 31, 31, 0), rgba(255,0,0,1));
+    border:black 1px solid;
+    border-radius: 20px;
+    text-align: justify;
+    padding: 10px 10px;
+    color: black;
+    margin:20px 50px;
+    
+
+}
+
+.bloghomecontent2 {
+    /* background-color: lightgoldenrodyellow; */
+    background-image: linear-gradient(to right, rgba(34, 31, 31, 0), rgba(255,0,0,1));
+    border:black 1px solid;
     border-radius: 20px;
     text-align: center;
-    padding: 6px 6px;
+    padding: 10px 10px;
     color: black;
-    text-shadow: 0 0 3px #FF0000;
+    margin:20px 50px;
+    
 
 }
 
@@ -270,7 +285,12 @@ p {
     background-color: blanchedalmond;
     color:black;
     text-shadow: 0 0 3px #FF0000;
-    font-size: large;
+    font-size: 30px;
+    width:800px;
+    margin:0 auto;
+    border: darksalmon 2px solid;
+    border-radius: 10px;
+    padding:10px 10px;
     
 }
 
@@ -291,22 +311,32 @@ p {
     color: red;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   overflow-wrap: break-word;
+  font-size: 25px;
 }
 .lead{
     border-radius: 70px;
     border: rgb(223, 54, 54) 2px solid;
     color: red;
+    font-size: 30px;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 .leadbook {
     color: rgb(19, 1, 1);
-  text-shadow: 2px 2px 4px #000000;
+  text-shadow: 2px 2px 4px #e4d7d74f;
     border: grey 2px solid;
-    border-radius: 100px;
+    border-radius: 90px;
+    background-color: lightgoldenrodyellow;
+    font-size: 25px;
+    overflow-wrap: break-word;
+    padding: 10px 10px;
+    text-align: center;
+    letter-spacing: 1px;
+
 }
 .homehead{
     text-shadow: 2px 2px 5px darkred;
     text-transform: uppercase;
+    font-size: 70px;
 }
 
 .todolistheading{

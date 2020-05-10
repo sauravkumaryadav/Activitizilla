@@ -18,11 +18,11 @@ const homeStartingContent = " Blog is a platform where a writer or even a group 
  These are individuals who love sharing parts of their lives with you. They post various topics from \
  arts, home designs, carpentry, and finance articles. Bloggers are mobile and don’t need to be in one place.\
  They live on the internet!A blogger is someone who runs and controls a blog. He or she shares his or her opinion \
-  on different topics for a target audience.Would you want to have a blog of your own? Yes! Most people today are creating \
-   a blog for various reasons. Every human being has its story to tell. Hence, through the internet, bloggers can communicate  \to a larger group of people.Why is blogging \
+ on different topics for a target audience.Would you want to have a blog of your own? Yes! Most people today are creating \
+ a blog for various reasons. Every human being has its story to tell. Hence, through the internet, bloggers can communicate  \to a larger group of people.Why is blogging \
  so popular? Blogs allow you to talk about any topics and express your opinion. You’ll find some bloggers writing on every activity that took place during the day. These may \
-  range from small issues such as waking up, to major issues like human rights and climate changes! Remember that as a blogger\
-  running your own blog, you need to rely on the topics that you love and strive to become one of the best blogs on the web.";
+ range from small issues such as waking up, to major issues like human rights and climate changes! Remember that as a blogger\
+ running your own blog, you need to rely on the topics that you love and strive to become one of the best blogs on the web.";
 
 const app = express();
 
@@ -376,21 +376,22 @@ app.post("/secretssubmit", function (req, res) {
 //todolist website
 
 app.get("/todolistshome", function (req, res) {
-// find() mei dekho
   if (req.isAuthenticated()) {
-    Item.find({userId:req.user._id},function(err,result){
-     if(err){console.log(err);}
-     else{
-       res.render("todolistslist",{
-         items: result,
-         userId: req.user._id
-         
-       });
-     }
+    Item.find({
+      userId: req.user._id
+    }, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("todolistslist", {
+          items: result,
+          userId: req.user._id
+
+        });
+      }
     });
-      
-  }
-   else {
+
+  } else {
     res.redirect("/login");
   }
 });
@@ -405,35 +406,35 @@ app.post("/todolistshome", function (req, res) {
     userId: req.body.userId
   });
   if (req.user._id == req.body.userId) {
-      item.save(function(err){
-        if(err){console.log(err);}
-        else{
-          res.redirect("/todolistshome");
+    item.save(function (err) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.redirect("/todolistshome");
 
-        }
-      });
-     
+      }
+    });
+
   }
 
 });
 
 app.post("/todolistsdelete", function (req, res) {
 
-Item.findByIdAndDelete(req.body.checkbox, function (err, result) {
-        if (!err) {
-          console.log("succesfully deleted");
-          res.redirect("/todolistshome");
-        }
-        else{
-          console.log(err);
-          console.log("unable to delete it!");
-        }
+  Item.findByIdAndDelete(req.body.checkbox, function (err, result) {
+    if (!err) {
+      console.log("succesfully deleted");
+      res.redirect("/todolistshome");
+    } else {
+      console.log(err);
+      console.log("unable to delete it!");
+    }
 
-      });
-    
-      
-  
-  
+  });
+
+
+
+
 });
 
 let port = process.env.PORT;
@@ -444,5 +445,3 @@ if (port == null || port == "") {
 app.listen(port, function () {
   console.log("server has started successfully");
 });
- 
-
