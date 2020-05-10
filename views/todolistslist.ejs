@@ -2,6 +2,7 @@
 <div class="box todolistheading" id="heading">
     <h1 class="todolistheading"><i class="far fa-check-circle">Today</i></h1>
 </div>
+
 <div class="box todolistbox">
     <% for(var i=0;i<items.length;i++){ %>
         <form action="/todolistsdelete" method="POST">
@@ -19,7 +20,7 @@
                 <button class="btn btn-dark btn-lg" type="submit" name="list">+</button>
     </form>
 </div><br>
+</div>
 <button class="btn btn-lg btn-dark" onclick="window.location.href='/book'">Back to Activities</button>
-
 
 <%- include("partials/footer"); -%>
