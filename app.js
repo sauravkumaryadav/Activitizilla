@@ -26,7 +26,7 @@ const homeStartingContent = " Blog is a platform where a writer or even a group 
 
 const app = express();
 
-app.use(express.static(__dirname + "public"));
+app.use(express.static("public"));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
   extended: true
@@ -376,6 +376,7 @@ app.post("/secretssubmit", function (req, res) {
 //todolist website
 
 app.get("/todolistshome", function (req, res) {
+
   if (req.isAuthenticated()) {
     Item.find({
       userId: req.user._id
