@@ -344,21 +344,61 @@ p {
     text-transform: uppercase;
 }
 .todolistbox{
-    background-image: linear-gradient(to left,cornsilk,rgb(214, 33, 60));
+    background-color:rgb(245,4,56);
     font-size: 26px;
+    margin: 0 auto;
+    width: 800px;
+    margin-top: 20px;
+    padding: 20px 20px;
+    
 }
 
 .todolistitems{
-     background-color: lightpink;
+     background-color:lemonchiffon;
       border: rgb(241, 11, 11) 2px inset;
       border-radius: 100px;
-      font-size: 20px;
+      font-size: 5px;
       margin: 20px 20px;
+      overflow-wrap: break-word;
+      display: inline-block;
+      display: inline-block;
+             min-width: 700px; 
+             max-width: 700px;
+             text-align: center;
+    padding: 3px 3px;
+
   }   
 
   .todolistwords{
       color: rgb(8, 8, 8);
       text-align: center;
-      text-shadow: 2px 2px 5px red;
-      font-size: 1.5rem;
+      text-shadow: 2px 2px 5px rgb(238, 83, 83);
+      font-size: 2rem;
+      letter-spacing: 0.5px;
+      text-transform: capitalize;
+      overflow-wrap: break-word;
+      padding: 5px 5px;
+
   }
+
+.todolistheading{
+    font-size: 90px;
+    background-color:rgb(245, 4, 56);
+    width:800px; 
+    margin:0 auto;
+    margin-top: 20px;
+    text-shadow: 2px 2px 5px whitesmoke;
+}
+
+input[type="checkbox"]
+{
+float: left;
+margin-left: 30px;
+margin-top: 24px;
+}
+
+.newItemBox{
+background-color: rgb(22, 22, 22);
+margin-right: 45px;
+color: whitesmoke;
+}
