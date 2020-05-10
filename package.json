@@ -9,7 +9,8 @@
   "author": "Saurav Kumar Yadav",
   "license": "ISC",
   "engines": {
-    "node": "12.16.1"
+    "node": "12.16.1",
+    "npm": "6.13.4"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
