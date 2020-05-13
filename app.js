@@ -215,6 +215,7 @@ app.get("/book", function (req, res) {
 //logout
 app.get("/logout", function (req, res) {
   req.logout();
+  console.log("sucessfully logged off")
   res.redirect('/');
 });
 

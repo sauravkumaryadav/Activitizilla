@@ -9,7 +9,7 @@
         </div>
         <div>
           <div class="col-lg-6" >
-            <iframe src="https://coronalive-ak.herokuapp.com/#tbval" width="400px" height="200px" ></iframe>
+            <iframe src="https://coronalive-ak.herokuapp.com/#tbval" width="500px" height="200px" scrolling="no" ></iframe>
             <!-- <img class="title-image" src="images/download.jfif" alt="covid-19 image"> -->
           </div>
           <button type="button" class="btn btn-outline-dark btn-lg covidbtn" onclick=" window.open('https://coronalive-ak.herokuapp.com/', '_blank'); return false;" ><i class="fas fa-virus">Covid-19 Live data</i></button>
@@ -21,25 +21,31 @@
 
   </section>
 
+<!--About Activities-->
+<section id="aboutActivities" class="white-section" style="margin-bottom: 2rem;margin-top: 2rem;">
+  <div class="row">
+  <div class="container aboutBlog col-lg-4">
+    <h1 class="big-heading" style="margin-top: 2rem;">BLOGGING</h1>
+    <p class="aboutBlogpara">Blogging is good for your career. A well-executed blog sets you apart as an expert in your field.
+      If you blog consistently it shows your dedication, passions and creativity.
+    </p>
+  </div>
+  <div class="container aboutToDoList col-lg-4">
+    <h1 class="big-heading" style="margin-top: 2rem;">TODOLIST</h1>
+    <p class="aboutToDoListpara">Lists today are a way of trying to get through the day, 
+      because we are losing a sense of time.
+      Subtracting from your list of priorities is as important as adding to it.</p>
+  </div>
+  <div class="container aboutSecret col-lg-4">
+    <h1 class="big-heading" style="margin-top: 2rem;">SECRET SHARING</h1>
+    <p class="aboutSecretpara">The more you share, the more you receive to share.
+      It needs strength to stay silent, but it needs courage to confide in somebody.
+      A secret spoken finds wings.
+    </p>
+  </div>
+</div>
+</section>
 
-  <!-- Features -->
-
-  <section id="features" class="feature-section">
-    <div class="row">
-      <div class="feature-box col-lg-4">
-        <h3 class="feature-title"><i class="icon fas fa-check-circle"></i><br>Easy to use.</h3>
-        <p>So easy to use, even your dog could use it.</p>
-      </div>
-      <div class="feature-box col-lg-4">
-        <h3 class="feature-title"><i class="icon fas fa-bullseye"></i><br>Carpe diem</h3>
-        <p>Enjoy your present rather than worrying about the future.</p>
-      </div>
-      <div class="feature-box col-lg-4">
-        <h3 class="feature-title"><i class="icon fas fa-heart"></i><br>Keep going.</h3>
-        <p>Create your blogs,todolist,share your fear and move on.</p>
-      </div>
-    </div>
-  </section>
 
 
   
@@ -93,7 +99,7 @@
             <h2 class="price-text">Free</h2>
             <p>Write secrets</p>
             <p>Read other's secrets</p>
-            <p>enjoy secrets</p>
+            <p>Share secrets</p>
             <button type="button" class="btn btn-dark btn-lg btn-block" onclick="location.href='/secretshome';">Share Secret</button>
           </div>
         </div>
@@ -104,15 +110,34 @@
   </section>
 
 
-  <!-- Download -->
+ 
+  <!-- Features -->
+  
+  <section id="features" class="feature-section">
+    <div class="row">
+      <div class="feature-box col-lg-4">
+        <h3 class="feature-title"><i class="icon fas fa-check-circle"></i><br>Easy to use.</h3>
+        <p>So easy to use, even your dog could use it.</p>
+      </div>
+      <div class="feature-box col-lg-4">
+        <h3 class="feature-title"><i class="icon fas fa-bullseye"></i><br>Carpe diem</h3>
+        <p>Enjoy your present rather than worrying about the future.</p>
+      </div>
+      <div class="feature-box col-lg-4">
+        <h3 class="feature-title"><i class="icon fas fa-heart"></i><br>Keep going.</h3>
+        <p>Create your blogs,todolist,share your fear and move on.</p>
+      </div>
+    </div>
+  </section>
 
-  <section id="download" >
+  <!--download-->
+  <!-- <section id="download" >
 
     <h3 class="big-heading">Download it on Android or ios platform also.</h3>
     <button type="button" class="download-button btn btn-lg btn-dark "><i class="fab fa-apple"></i>Download</button>
     <button type="button" class="download-button btn btn-lg btn-dark"><i class="fab fa-google-play"></i>Download</button>
 
-  </section>
+  </section> -->
 
   <!-- About Us-->
 
@@ -181,20 +206,20 @@
   <form action="/contact" method="POST">
     <div class="form-group">
       <label for="exampleInputName">Full Name</label>
-      <input type="text" name="fName" class="form-control" id="exampleInputName" placeholder="Enter full name" required>
+      <input type="text" name="fName" class="form-control" id="exampleInputName" placeholder="Enter full name" required autocomplete="off">
     </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required autocomplete="off">
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
       <label for="exampleInputSubject">Subject</label>
-      <input type="text" name="subj" class="form-control" id="exampleInputSubject" placeholder="Enter the subject" required>
+      <input type="text" name="subj" class="form-control" id="exampleInputSubject" placeholder="Enter the subject" required autocomplete="off">
     </div>
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Message</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required autocomplete="off"></textarea>
     </div>
     <button type="submit" class="btn btn-dark">Submit</button>
   </form>
