@@ -12,11 +12,11 @@
           <form action="/login" method="POST">
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" class="form-control" name="username" required autocomplete="off">
+              <input type="email" class="form-control" name="username" pattern=".+@gmail.com" title="Email must be abc@gmail.com" required autocomplete="off">
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" required>
+              <input type="password" class="form-control" name="password"  title="Password must be 8 characters including 1 uppercase letter, 1 lowercase letter and numeric characters" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
             </div>
             <button type="submit" class="btn btn-dark">Login</button>
           </form>
