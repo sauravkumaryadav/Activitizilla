@@ -3,8 +3,7 @@
 
 
 <h1 style="text-align:center;color:crimson;margin-top:30px;text-shadow: 2px 2px 5px red;padding: 10px;text-decoration: underline;text-transform: capitalize;letter-spacing: 1.5px;font-size: 60px;"><%=title%></h1>
-<p style="text-align: justify;margin:30px 30px;background-image: url(https://storage.needpix.com/rsynced_images/background-4232859_1280.png);background-size: cover;overflow-wrap: break-word;width:900px; margin:0 auto;border: black 1.2px solid;font-size: 20px;padding: 10px 10px;"><%=content%></p>
-
+<p style="text-align: justify;margin:30px 30px;background-image: url(https://storage.needpix.com/rsynced_images/background-4232859_1280.png);background-size: cover;overflow-wrap: break-word;width:56.25rem; margin:0 auto;border: black 1.2px solid;font-size: 1.25rem;padding: 10px 10px;"><%=content%></p>
 <form action="/blogdelete" method="POST">
 <button type="submit" name="delete" value="<%= title%>" class="btn btn-md btn-primary" style="margin-left:auto;margin-right:auto;display:block;margin-top:2%;margin-bottom:0%">Delete it!</button>  
 <input type="hidden" name="titleName" value="<%= title %>"></input>
